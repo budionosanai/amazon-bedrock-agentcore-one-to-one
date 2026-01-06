@@ -37,7 +37,7 @@ This repository explains AI agent implementation for candidate screening use cas
 | **[CrewAI without AgentCore](./crewai/CrewaiWithoutAgentcore.ipynb)** | **Google Colab**. |
 | **[CrewAI with AgentCore](./crewai/CrewaiWithAgentcore.ipynb)** | **Google Colab**. |
 
-3. (Optional) Delete AgentCore Runtime and Amazon ECR repository in Langgraph and CrewAI with AgentCore notebook with this code :
+3. **(OPTIONAL)** Delete **AgentCore Runtime** and **Amazon ECR** repository in Langgraph and CrewAI with AgentCore notebook with this code :
 
 ```
 import boto3
@@ -73,6 +73,10 @@ response = ecr.delete_repository(
 * [CrewAI documentation](https://docs.crewai.com/)
 * [Langgraph documentation](https://docs.langchain.com/oss/python/langgraph/)
 * [Google Gemini documentation](https://ai.google.dev/gemini-api/docs/)
+
+## Tutorial Blog
+
+* https://dev.to/budionosan/amazon-bedrock-agentcore-runtime-with-langgraph-crewai-and-google-gemini-57l5
 
 ## 🙏 Acknowledgments
 
