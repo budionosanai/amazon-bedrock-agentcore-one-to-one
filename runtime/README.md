@@ -37,30 +37,28 @@ This repository explains AI agent implementation for candidate screening use cas
 | **[CrewAI without AgentCore](./crewai/CrewaiWithoutAgentcore.ipynb)** | **Google Colab**. |
 | **[CrewAI with AgentCore](./crewai/CrewaiWithAgentcore.ipynb)** | **Google Colab**. |
 
-3. **(OPTIONAL)** Delete **AgentCore Runtime** and **Amazon ECR** repository in Langgraph and CrewAI with AgentCore notebook with this code :
+3. **(OPTIONAL)** Delete AWS services in AgentCore notebook with this code :
 
 ```
-import boto3
-region = "us-west-2"
+agentcore_runtime = boto3.client('bedrock-agentcore-control', region)
 
-agentcore_control = boto3.client(
-    'bedrock-agentcore-control',
-    region_name=region
-)
+agentcore_runtime.delete_agent_runtime(agentRuntimeId=launch_result.agent_id)
 
-ecr = boto3.client(
-    'ecr',
-    region_name=region
-)
+ecr = boto3.client('ecr', region)
 
-runtime_delete_response = agentcore_control.delete_agent_runtime(
-    agentRuntimeId=launch_result.agent_id
-)
+ecr.delete_repository(repositoryName=launch_result.ecr_uri.split('/')[1], force=True)
 
-response = ecr.delete_repository(
-    repositoryName=launch_result.ecr_uri.split('/')[1],
-    force=True
-)
+codebuild = boto3.client('codebuild', region)
+
+codebuild.delete_project(name=launch_result.codebuild_id.split(':')[0])
+
+s3 = boto3.client('s3', region)
+
+s3.delete_bucket(Bucket='screening-candidate')
+
+secretsmanager = boto3.client('secretsmanager', region)
+
+secretsmanager.delete_secret(SecretId='geminiapikey')
 ```
 
 ## ⚠️ Warning
